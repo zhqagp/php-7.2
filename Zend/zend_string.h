@@ -74,6 +74,10 @@ END_EXTERN_C()
 
 #define _ZSTR_STRUCT_SIZE(len) (_ZSTR_HEADER_SIZE + len + 1)
 
+#ifndef ZSTR_MAX_LEN
+# define ZSTR_MAX_LEN ((size_t)-1 - ZEND_MM_ALIGNED_SIZE(_ZSTR_HEADER_SIZE + 1))
+#endif
+
 #define ZSTR_ALLOCA_ALLOC(str, _len, use_heap) do { \
 	(str) = (zend_string *)do_alloca(ZEND_MM_ALIGNED_SIZE_EX(_ZSTR_STRUCT_SIZE(_len), 8), (use_heap)); \
 	GC_REFCOUNT(str) = 1; \
